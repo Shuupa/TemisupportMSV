@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "temisupport-vjgf",
+  "private_key_id": "7c727be884b271dff67487cafa50e509ea31f51b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5Htpp26QmYuTJ\nWKWi7FMBmoDChVUxUf0U8wmN5SOjYIYnVcKA6ENhr4RIptbFV1txxVKXKYuxPn0w\n5NaHpAQx/40y0gSmqbwLiDQLyi+MoLNZCw86bSmQ+/gnYWkenoS7mg6Z3pGl0QUI\nReAiSNXXzvjLSm+U1V2ZZGJn3KJTN+peJ1ertQR07omJQ+rQae0fS6E8/bk/AwTo\nQldrsDqm7/eLFtjoX5wKaysQjrMZSSm36SnN+VD4sJyaMLX8nO4D0Tlmsw6uVVCU\nWjq3T/b5UXpbIXET5uoQLcFsUVd/CNPKUS9cV1wXJL22aEyMq2TYEITWpbejitkx\n5Y7V9JSjAgMBAAECggEAH2VvL6LzvRrqqIdjWDVygoQcsGECqOG55ZKunSUunSfi\nuMsfuNMrkma9LcE2DbQaKzqHHmIKch4iB2fYRpr3py8rWGIsLcP9w4rvIMzCsbwT\njteEVqlq8k75sFwiAvJpmpOvRENuOkwv6U5IjCgENJzCr1/JetmRDVHsKqdN1IUN\n9LIrGSUvSNgCK+/7x5kaAbHD0Oald1G+w3get8Lv85PXXVk/OQAPwRJ4RtqdUXeP\nfox/WOc09ZlJ2xGqElaJ+yiEV5FNHIif4XGxns5Jnxybig2i2r7O1RApifmpBHOQ\n3tJQmRD54+F3Lj11t/2+Q94Dk3ewDHNeMRbfj52+kQKBgQDyKSKMz9u6zdpehNV8\nzn65vq1DQ79BRgMc7kXPDjcyIq/7VZAYHRr06C7VwncV69ekc8UJZPwA5/i+jJPt\nxSK37LbAMmnKWyucRWQEB8T/WUunSY3BLkULRIkqkzyWk/bRXEqC8OE+hmdFdyHy\n7PxEiJxejkdw6gjuxgiI9BLxOwKBgQDDszU11b0h/bH1oWnaVhps3q18wIF1yRC3\nslY2+RWiT+FNXog8rVfYGLfkO9p7tdF+3FwBJYQlF5lc1fSNtyzopAwi1SBem6xs\nj/e7dA2vzWPw5x//8n3tWslbfdLtsJQtuI2bpMw1uqxPO+ug1ACD4uu4ndVuf2No\nGJn2R0izuQKBgQCP75dTrzDhxf2n9LiYaHy2lvmRY7FIcP7ksVPZEJAKQsfrUh5F\n1vbw3xkHgYEbDIWugAl73gRT3Y3iZNiAmY5bWF3/u3daCfrP9gbOxnd3d3IaSwPw\n8TmkyuXk4oM+1U/9fSfk0Jxxd53mkjshk28WpUSch2E7YkBQ/HCSRtEDhQKBgHeS\niMGC/hPFubVWUaH5GB5LFH9z8+Xu20sSKQFfwesxmXy3dNB2LYU43SsTsxQBbKZx\np7l/nbU4LRl/FPR95m+ixFOIG0YTIhAXCwu7Bh3ThewMnA27sVuULBG92GIokPE6\noTNnRurRSzUCbJ8QydvLi7F6pozkQu24kmHa/j3pAoGAL6G7wIWPJdemOXaMcocX\nktTh5hpv9Rc46BhyeSnBF/060kkxCmiZ+QJSorvgdkZBC9Klj0NsU0l8NM4QYkas\nDMOUIFQfXP9/tkHvIPi+jTwZCsKlrycYUhkPoJT3XdjQi6x7HSIWIYoj3YFbGfQn\nHBTDlM+o5G2CeA0Bf7RHk+E=\n-----END PRIVATE KEY-----\n",
+  "client_email": "temisupport@temisupport-vjgf.iam.gserviceaccount.com",
+  "client_id": "115125221452692088279",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/temisupport%40temisupport-vjgf.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
