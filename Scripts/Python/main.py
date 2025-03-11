@@ -55,6 +55,7 @@ print(f" DialogFlow connected: sucsess!")
 print(f" API Telegram connected: sucsess!")
 print(f" Google cloud connected: sucsess!")
 print(f" All handlers active!")
+print(f" Started!")
 #Сообщение при /start
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Привет, давай пообщаемся?')
