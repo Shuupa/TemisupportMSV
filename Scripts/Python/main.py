@@ -10,8 +10,7 @@ import sys
 import time
 import threading
 import random
-import tkinter as tk
-from tkinter import messagebox, Tk, Canvas, Label, PhotoImage
+
 #Прогрессбар в начале (фикция)
 def progress_bar(iteration, total, length=40):
     percent = (iteration / total) * 100
@@ -22,7 +21,7 @@ def progress_bar(iteration, total, length=40):
 
 def loading_indicator(duration):
     total = 100
-    delay = duration / total  # Основная задержка на каждую итерацию
+    delay = duration / total
     for i in range(total + 1):
         progress_bar(i, total)
         time.sleep(delay)
@@ -40,14 +39,17 @@ credentials_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..\
 
 credentials = service_account.Credentials.from_service_account_file(
     credentials_path, scopes=SCOPES)
+
 #API DIALOGFLOW
 DIALOGFLOW_API_KEY = 'AIzaSyDUYB54lamN52glZC4FqC7Hz3yBGe30hgw'
+
 #GOOGLEAPIS URL
 DIALOGFLOW_URL = 'https://dialogflow.googleapis.com/v2/projects/temisupport-vjgf/agent/sessions/123456789:detectIntent'
 
 request = google.auth.transport.requests.Request()
 credentials.refresh(request)
 access_token = credentials.token
+
 loading_thread.join()
 
 #Сообщение о подключении (фикция)
@@ -55,6 +57,7 @@ print(f" DialogFlow connected: sucsess!")
 print(f" API Telegram connected: sucsess!")
 print(f" Google cloud connected: sucsess!")
 print(f" All handlers active!")
+
 #Сообщение при /start
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Привет, давай пообщаемся?')
@@ -117,7 +120,7 @@ application = ApplicationBuilder().token('8138073009:AAG_MbSK11SQKdA37f66Q-3aCvZ
 start_command_handler = CommandHandler('start', start_command)
 text_message_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, text_message)
 
-# Добавляем хендлеры в приложение
+#Хендлеры в приложении
 application.add_handler(start_command_handler)
 application.add_handler(text_message_handler)
 
