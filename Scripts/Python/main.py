@@ -10,6 +10,7 @@ import sys
 import time
 import threading
 import random
+import pyodbc
 
 #Прогрессбар в начале (фикция)
 def progress_bar(iteration, total, length=40):
@@ -58,6 +59,19 @@ print(f" API Telegram connected: sucsess!")
 print(f" Google cloud connected: sucsess!")
 print(f" All handlers active!")
 
+def connect_to_db():
+    server = 'SHUUPA' 
+    database = 'Temisupport'
+    connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
+    
+    try:
+        conn = pyodbc.connect(connection_string)
+        print("Сообщение логировано!")
+        return conn
+    except Exception as e:
+        print(f"Ошибка подключения к базе данных: {e}")
+        return None
+
 #Сообщение при /start
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Привет, давай пообщаемся?')
@@ -68,6 +82,8 @@ async def text_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message_text = update.message.text
     timestamp = update.message.date
     user = update.effective_user
+
+    
 
     # Вывод информации о сообщении в консоль
     print(f"")
@@ -81,7 +97,17 @@ async def text_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(f" Timestamp: {timestamp}")
     print(f" _________________________________")
     print(f"")
-
+    #Логирование в бд
+    conn = connect_to_db()
+    if conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        INSERT INTO [dbo].[Log] (User_id, Chat_id, User_First_name, User_Last_name, Message, Message_id) 
+        VALUES (?, ?, ?, ?, ?, ?)""",
+        user.id, chat_id, user.first_name, user.last_name, message_text, update.message.message_id)
+        conn.commit()
+        cursor.close()
+        conn.close()
     headers = {
         'Authorization': f'Bearer {access_token}',
         'Content-Type': 'application/json'
