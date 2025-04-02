@@ -10,8 +10,8 @@ import sys
 import time
 import threading
 import random
-import tkinter as tk
-from tkinter import messagebox, Tk, Canvas, Label, PhotoImage
+import pyodbc
+
 #Прогрессбар в начале (фикция)
 def progress_bar(iteration, total, length=40):
     percent = (iteration / total) * 100
@@ -22,7 +22,7 @@ def progress_bar(iteration, total, length=40):
 
 def loading_indicator(duration):
     total = 100
-    delay = duration / total  # Основная задержка на каждую итерацию
+    delay = duration / total
     for i in range(total + 1):
         progress_bar(i, total)
         time.sleep(delay)
@@ -40,14 +40,17 @@ credentials_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..\
 
 credentials = service_account.Credentials.from_service_account_file(
     credentials_path, scopes=SCOPES)
+
 #API DIALOGFLOW
 DIALOGFLOW_API_KEY = 'AIzaSyDUYB54lamN52glZC4FqC7Hz3yBGe30hgw'
+
 #GOOGLEAPIS URL
 DIALOGFLOW_URL = 'https://dialogflow.googleapis.com/v2/projects/temisupport-vjgf/agent/sessions/123456789:detectIntent'
 
 request = google.auth.transport.requests.Request()
 credentials.refresh(request)
 access_token = credentials.token
+
 loading_thread.join()
 
 #Сообщение о подключении (фикция)
@@ -55,7 +58,20 @@ print(f" DialogFlow connected: sucsess!")
 print(f" API Telegram connected: sucsess!")
 print(f" Google cloud connected: sucsess!")
 print(f" All handlers active!")
-print(f" Started!")
+
+def connect_to_db():
+    server = 'SHUUPA' 
+    database = 'Temisupport'
+    connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
+    
+    try:
+        conn = pyodbc.connect(connection_string)
+        print("Сообщение логировано!")
+        return conn
+    except Exception as e:
+        print(f"Ошибка подключения к базе данных: {e}")
+        return None
+
 #Сообщение при /start
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Привет, давай пообщаемся?')
@@ -66,6 +82,8 @@ async def text_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message_text = update.message.text
     timestamp = update.message.date
     user = update.effective_user
+
+    
 
     # Вывод информации о сообщении в консоль
     print(f"")
@@ -79,7 +97,17 @@ async def text_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(f" Timestamp: {timestamp}")
     print(f" _________________________________")
     print(f"")
-
+    #Логирование в бд
+    conn = connect_to_db()
+    if conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        INSERT INTO [dbo].[Log] (User_id, Chat_id, User_First_name, User_Last_name, Message, Message_id) 
+        VALUES (?, ?, ?, ?, ?, ?)""",
+        user.id, chat_id, user.first_name, user.last_name, message_text, update.message.message_id)
+        conn.commit()
+        cursor.close()
+        conn.close()
     headers = {
         'Authorization': f'Bearer {access_token}',
         'Content-Type': 'application/json'
@@ -118,7 +146,7 @@ application = ApplicationBuilder().token('8138073009:AAG_MbSK11SQKdA37f66Q-3aCvZ
 start_command_handler = CommandHandler('start', start_command)
 text_message_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, text_message)
 
-# Добавляем хендлеры в приложение
+#Хендлеры в приложении
 application.add_handler(start_command_handler)
 application.add_handler(text_message_handler)
 
